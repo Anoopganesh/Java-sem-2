@@ -1,0 +1,44 @@
+import java.util.Scanner;
+abstract class Vehicle { 
+public abstract void drive();
+}
+interface Drivable { 
+void drive();
+}
+class Car extends Vehicle implements Drivable{ 
+public void drive() {
+System.out.println("Car is driving"); 
+}
+}
+class Motorbike extends Vehicle implements Drivable { 
+public void drive() {
+System.out.println("Motorbike is driving"); 
+}
+}
+public class Main {
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in); 
+Vehicle v1 = new Car();
+Vehicle v2 = new Motorbike();
+Drivable d1 = new Car();
+Drivable d2 = new Motorbike();
+while (true) {
+System.out.println("Choose a vehicle to drive: 1. Car 2. Motorbike 3. Exit"); 
+int choice = sc.nextInt();
+switch (choice) {
+case 1: 
+v1.drive(); 
+break;
+case 2: 
+v2.drive(); 
+break;
+case 3:
+System.out.println("Exiting the program"); sc.close();
+return;
+default:
+System.out.println("Invalid choice");
+} 
+}
+
+ } 
+ }
