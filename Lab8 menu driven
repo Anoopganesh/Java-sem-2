@@ -1,0 +1,90 @@
+8)package genericsprg8;
+
+import java.util.*;
+
+class UpperBoundWildcard<T extends Number> {
+    private List<T> numbers = new ArrayList<>();
+
+    public void addNumber(T number) {
+        numbers.add(number);
+    }
+
+    public List<T> getNumbers() {
+        return numbers;
+    }
+
+    public static double sum(List<? extends Number> list) {
+        double total = 0;
+        for (Number num : list) {
+            total += num.doubleValue();
+        }
+        return total;
+    }
+
+    public void sort() {
+        List<Double> tempList = new ArrayList<>();
+        for (T num : numbers) {
+            tempList.add(num.doubleValue());
+        }
+
+        for (int i = 0; i < tempList.size() - 1; i++) {
+            for (int j = 0; j < tempList.size() - i - 1; j++) {
+                if (tempList.get(j) > tempList.get(j + 1)) {
+                    Collections.swap(tempList, j, j + 1);
+                }
+            }
+        }
+
+        for (int i = 0; i < numbers.size(); i++) {
+            numbers.set(i, (T) tempList.get(i));
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        UpperBoundWildcard<Number> ub = new UpperBoundWildcard<>();
+        Scanner sc = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("1. Add Integer");
+            System.out.println("2. Add Double");
+            System.out.println("3. Sum");
+            System.out.println("4. Sort");
+            System.out.println("5. Print List");
+            System.out.println("6. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter an Integer: ");
+                    int intInput = sc.nextInt();
+                    ub.addNumber(intInput);
+                    break;
+                case 2:
+                    System.out.print("Enter a Double: ");
+                    double doubleInput = sc.nextDouble();
+                    ub.addNumber(doubleInput);
+                    break;
+                case 3:
+                    System.out.println("Sum of Numbers: " + UpperBoundWildcard.sum(ub.getNumbers()));
+                    break;
+                case 4:
+                    ub.sort();
+                    System.out.println("Sorted Numbers: " + ub.getNumbers());
+                    break;
+                case 5:
+                    System.out.println("List: " + ub.getNumbers());
+                    break;
+                case 6:
+                    System.out.println("Exiting...");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        } while (choice != 6);
+        sc.close();
+    }
+}
